@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from .models import SocialUSer, FriendRequest
+from .models import *
 class SocialUSerSerializer(serializers.ModelSerializer):
   password = serializers.CharField(write_only=True)
   class Meta:
     model = SocialUSer
-    fields = ['username','email','password']
+    fields = ['username','email','password','name']
 
-class LoginSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = SocialUSer
-    fields = ['email','password']
+# class LoginSerializer(serializers.ModelSerializer):
+#   class Meta:
+#     model = SocialUSer
+#     fields = ['email','password']
 
 
 class FriendRequestSerializer(serializers.ModelSerializer):
@@ -17,5 +17,7 @@ class FriendRequestSerializer(serializers.ModelSerializer):
     model = FriendRequest
     fields ="__all__"
 
-  def create(self, validated_data):
-    return FriendRequest.objects.create(**validated_data)
+class Friend_List_Serializer(serializers.ModelSerializer):
+  class Meta:
+    model = Friend_List
+    fields = ['sender','receiver','status','created_at']
